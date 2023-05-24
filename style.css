@@ -1,4 +1,69 @@
+.carousel {
+  position: relative;
+  width: 400px; /* Adjust width as needed */
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
 .carousel img {
-  width: 100px; /* Adjust the width as desired */
+  width: 100%;
   height: auto;
+}
+
+.carousel-navigation {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  text-align: center;
+}
+
+.carousel-prev,
+.carousel-next {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 20px;
+}
+
+.carousel-prev {
+  margin-right: 10px;
+}
+
+.carousel-next {
+  margin-left: 10px;
+}
+
+
+
+
+/* KEY BOARD */ /* KEY BOARD *//* KEY BOARD *//* KEY BOARD */
+/* KEY BOARD */ /* KEY BOARD *//* KEY BOARD *//* KEY BOARD */
+/* KEY BOARD */ /* KEY BOARD *//* KEY BOARD *//* KEY BOARD */
+
+.keyboard {
+  display: none;
+}
+
+.keyboard-key {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .keyboard {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+
+#text-input {
+  width: 300px;
 }

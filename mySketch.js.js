@@ -10,6 +10,7 @@ let MECH = false;
 let PIECES = false;
 let INTRO = true;
 
+//AUDIO
 let repeat_sound;
 let journal_sound;
 let games_sound;
@@ -29,7 +30,6 @@ let mecha = ("mechanical").split(/(?!$)/u);
 let coe = ("coerce").split(/(?!$)/u);
 let act = ("act").split(/(?!$)/u);
 let start = false;
-
 let sentence;
 let prev;
 let index =  0;
@@ -52,10 +52,8 @@ var card7_img;
 var card8_img;
 let number = 0;
 let t = '';
-
 var cards = false;
 var objects = false;
-
 var sentences = [];
 let counter = 0;
 let current_sentence = '';
@@ -71,6 +69,41 @@ var mech_vid;
 //PIECES ELEMENTS
 let instructions = [];
 
+//IMAGE CAROUSEL IMAGE CAROUSEL
+$(document).ready(function() {
+  var carouselContainer = $('.carousel-container');
+  var images = carouselContainer.find('img');
+  var imageCount = images.length;
+  var currentIndex = 0;
+
+  $('.carousel-next').click(function() {
+    currentIndex = (currentIndex + 1) % imageCount;
+    carouselContainer.css('transform', 'translateX(' + (-currentIndex * 100) + '%)');
+  });
+
+  $('.carousel-prev').click(function() {
+    currentIndex = (currentIndex - 1 + imageCount) % imageCount;
+    carouselContainer.css('transform', 'translateX(' + (-currentIndex * 100) + '%)');
+  });
+
+
+//KEY BOARD KEY BOARD
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+if (isMobile) {
+  var keyboard = document.getElementById('keyboard');
+  var textInput = document.getElementById('text-input');
+
+  keyboard.addEventListener('click', function(event) {
+    if (event.target.classList.contains('keyboard-key')) {
+      var key = event.target.textContent;
+      textInput.value += key;
+      keyTyped();
+    }
+  });
+}
+
+});
+
 function preload() {
 	//SOUND ELEMENTS
 	soundFormats('mp3');
@@ -78,7 +111,7 @@ function preload() {
 	journal_sound = loadSound('observation.mp3');
 	games_sound = loadSound('games.mp3');
 	mech_sound = loadSound('mech.mp3');
-  pieces_sound = loadSound('pieces.mp3');
+  	pieces_sound = loadSound('pieces.mp3');
 	
 	//MAIN ELEMENTS
 	background_img = loadImage('background.png');
@@ -143,7 +176,6 @@ function setup() {
 	//MAIN ELEMENTS
 	var canvas = createCanvas(800, 480);
  	canvas.parent('canvas-container');
-
 	background(250, 250, 250);
 	getAudioContext().suspend();
 	
@@ -151,20 +183,22 @@ function setup() {
 	for(let i=0; i<5; i++){
 		main_buttons[i] = new Clickable();
 		main_buttons[i].image = main_img_buttons[i];
-  	main_buttons[i].text = "";
-  	main_buttons[i].locate(55, 15+(i*90));
-  	main_buttons[i].resize(86, 86);}
-		main_buttons[0].onPress = function () {
-			if(errors >= 10){
-				print("YOU'VE BEEN KICKED OUT OF THIS FUNCTION");
-			}else{ 
-				ram();
-			}
-			}
-		main_buttons[1].onPress = function () {journal()}
-		main_buttons[2].onPress = function () {games()}
-		main_buttons[3].onPress = function () {mech()}
-		main_buttons[4].onPress = function () {pieces()}
+	  	main_buttons[i].text = "";
+	  	main_buttons[i].locate(55, 15+(i*90));
+	  	main_buttons[i].resize(86, 86);
+  	}
+	main_buttons[0].onPress = function () {
+		if(errors >= 10){
+			print("YOU'VE BEEN KICKED OUT OF THIS FUNCTION");
+		}else{ 
+			ram();
+		}
+	}
+		
+	main_buttons[1].onPress = function () {journal()}
+	main_buttons[2].onPress = function () {games()}
+	main_buttons[3].onPress = function () {mech()}
+	main_buttons[4].onPress = function () {pieces()}
 	
 	//RAM ELEMENTS
 	sentenceList.push(red);
@@ -176,7 +210,6 @@ function setup() {
 	sentenceList.push(coe);
 	sentenceList.push(act)
 	sentence = sentenceList[index];
-	
 	
 	//GAME ELEMENTS
 	chooseGame();
@@ -319,48 +352,38 @@ function setup() {
 		noStroke();
 		rect(150, 20, 600, 450);
 		current_sentence = sentences[counter];
-		
 	}
-	else{
-		//print('er');
-	}
-
 }
 
 function draw() {
 	resetScreen();
 	INTRO = true;
 	
-	if(INTRO){
-		image(intro_vid, 150,20, 600, 450);
-	}
-	else{
-		resetScreen();
-	}
+	if(INTRO){image(intro_vid, 150,20, 600, 450);}
+	else{resetScreen();}
 
 	//RAM ELEMENTS
 	if(RAM){
-		
 		resetScreen();
 		intro = false;
 
-   //typing started
-    if(start){      
-        //highlight box
-        if(wrong){
-						image(randomImg, 255, 130, 100, 80);
-            fill(255,0,0,100);
-						//errors = errors + 1;
-        }
-        else{
-						image(star, 255, 130, 100, 80);
-						noFill();
-        }
-        rect(220,260,50,70);
-    }
+	    //typing started
+	    if(start){      
+	        //highlight box
+	        if(wrong){
+				image(randomImg, 255, 130, 100, 80);
+	            fill(255,0,0,100);
+				//errors = errors + 1;
+	        }
+	        else{
+				image(star, 255, 130, 100, 80);
+				noFill();
+	        }
+	        rect(220,260,50,70);
+	    }
     
     //start when user types
-    if(keyIsPressed && sentence.length >0){
+    if(keyIsPressed && sentence.length > 0){
         start = true;   
     }
     
@@ -369,8 +392,7 @@ function draw() {
         start = false;
         fill(0);
         textSize(50);
-			   
-				index = floor(random(sentenceList.length));
+		index = floor(random(sentenceList.length));
         wrong = false;
         i2 = 0;
         start = false;
@@ -383,21 +405,22 @@ function draw() {
         fill(0,255-(100+60*i-i2*60)/3.7);
         text(sentence[i],230+60*i-i2*60,320)
     }
-	}
+
 	if(errors > 10){
 		clear();
 		resetScreen();
 		image(intro_vid, 150,20, 600, 450);
 		repeat_sound.stop();
-	}//END RAM ELEMENTS
-	
+	}
+	//END RAM ELEMENTS
 	
 	//JOURNAL ELEMENTS
 	if(JOURNAL){
 		clear();
 		resetScreen();
 		image(journal_vid, 150,20, 600, 450);
-	} //END JOURNAL ELEMENTS
+	}
+	//END JOURNAL ELEMENTS
 	
 	
 	//GAME ELEMENTS
@@ -527,7 +550,7 @@ function draw() {
 	}
 	
 	
-}
+}}
 
 //RAM
 function ram() {
@@ -552,9 +575,9 @@ function ram() {
 	pieces_sound.stop();
 	
 	textFont('Georgia');
-  textSize(30);
-  stroke(3);
-  fill(51, 49, 49);
+	textSize(30);
+	stroke(3);
+	fill(51, 49, 49);
 }
 
 function keyTyped() {
@@ -566,11 +589,10 @@ function keyTyped() {
         else{
           	errors++;
            	wrong = true;
-						randomImg =	random(weird_pictures);
+			randomImg =	random(weird_pictures);
         }
     }
 }
-
 
 //JOURNAL
 function journal() {
@@ -592,7 +614,6 @@ function journal() {
 	clear();
 	resetScreen();
 }
-
 
 //GAMES
 function games() {
@@ -634,6 +655,7 @@ function mech() {
 	
 	//print('mech')
 }
+
 function getRandomNum(){
  while (true){
    let randomNum = int(random(1,9));
@@ -684,9 +706,7 @@ function pieces() {
 	pieces_sound.loop();
 	
 	randomInstructions = random(instructions);
-
 }
-
 
 function resetScreen() {
 	clear();
@@ -698,9 +718,10 @@ function resetScreen() {
 			main_buttons[i].draw();
 	}
 	
-
 }
 
 function mousePressed() {
   userStartAudio();
 }
+
+
