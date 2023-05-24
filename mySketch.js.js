@@ -141,7 +141,9 @@ function preload() {
 
 function setup() {
 	//MAIN ELEMENTS
-	createCanvas(800, 480);
+	var canvas = createCanvas(800, 480);
+ 	canvas.parent('canvas-container');
+
 	background(250, 250, 250);
 	getAudioContext().suspend();
 	
@@ -530,7 +532,9 @@ function draw() {
 //RAM
 function ram() {
 	//print('ram')
-	document.getElementById("myInput").focus();
+	setTimeout(function() {
+	  document.getElementById("myInput").focus();
+	}, 100);
 
 	//set scene
 	RAM = true;
