@@ -166,13 +166,13 @@ function setup() {
 	
 	//RAM ELEMENTS
 	sentenceList.push(red);
-  sentenceList.push(daisy);
-  sentenceList.push(delu);
-  sentenceList.push(sun);
-  sentenceList.push(occ);
-  sentenceList.push(mecha);
-  sentenceList.push(coe);
-  sentenceList.push(act)
+	sentenceList.push(daisy);
+	sentenceList.push(delu);
+	sentenceList.push(sun);
+	sentenceList.push(occ);
+	sentenceList.push(mecha);
+	sentenceList.push(coe);
+	sentenceList.push(act)
 	sentence = sentenceList[index];
 	
 	
@@ -530,7 +530,8 @@ function draw() {
 //RAM
 function ram() {
 	//print('ram')
-	
+	document.getElementById("myInput").focus();
+
 	//set scene
 	RAM = true;
 	INTRO = false;
