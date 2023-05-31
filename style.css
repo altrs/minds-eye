@@ -1,7 +1,7 @@
 .carousel {
   position: relative;
   width: 400px; /* Adjust width as needed */
-  margin: 0 auto;
+  margin-left: 40px;
   overflow: hidden;
 }
 
@@ -28,6 +28,8 @@
   display: inline-block;
   padding: 5px 10px;
   font-size: 20px;
+  border-radius: 10px;
+  border-style: none;
 }
 
 .carousel-prev {
@@ -36,34 +38,4 @@
 
 .carousel-next {
   margin-left: 10px;
-}
-
-
-
-
-/* KEY BOARD */ /* KEY BOARD *//* KEY BOARD *//* KEY BOARD */
-/* KEY BOARD */ /* KEY BOARD *//* KEY BOARD *//* KEY BOARD */
-/* KEY BOARD */ /* KEY BOARD *//* KEY BOARD *//* KEY BOARD */
-
-.keyboard {
-  display: none;
-}
-
-.keyboard-key {
-  display: inline-block;
-  padding: 10px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-
-@media screen and (max-width: 1024px) {
-  .keyboard {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-}
-
-#text-input {
-  width: 300px;
 }
